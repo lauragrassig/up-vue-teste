@@ -1,0 +1,18 @@
+.button_default {
+  background: $gradient-color;
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: .5rem 1rem;
+  border-radius: .2rem;
+  transition: .5s ease;
+  &:hover {
+    opacity: .8;
+  }
+
+  &.--no-bg {
+    background: none;
+    padding: .5rem 0;
+  }
+}

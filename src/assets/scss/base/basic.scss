@@ -42,3 +42,15 @@ a {
     right: 0;
   }
 }
+
+.carousel-caption {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  bottom: 0 !important;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}

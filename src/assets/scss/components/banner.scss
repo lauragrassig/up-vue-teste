@@ -1,0 +1,97 @@
+.wrapper_banner {
+  border-bottom: .2rem solid $base-color;
+
+  .banner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    @media #{$device-g-md} {
+      padding: 0 5rem;
+      justify-content: flex-start;
+      width: 100%;
+    }
+    
+    &_title {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      @media #{$device-g-md} {
+        justify-content: initial;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+        padding-left: 0.5rem;
+
+        @media #{$device-g-md} {
+          font-size: 2.3rem;
+          padding-left: 1.5rem;
+        }
+      }
+    }
+
+    &_description {
+      color: grey;
+      max-width: 35rem;
+
+      font-size: .9rem;
+      text-shadow: none;
+      font-weight: bold;
+
+      @media #{$device-g-md} {
+        font-size: 1.5rem;
+        text-align: justify;
+      }
+    }
+
+    &_price {
+      padding-top: .5rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @media #{$device-g-md} {
+        justify-content: flex-start;
+      }
+      .price_price {
+        padding-right: 1rem;
+        span {
+          color: $text-color;
+          font-weight: 600;
+          font-size: 1rem;
+          &:nth-child(2) {
+            font-size: 2rem;
+            padding-left: .5rem;
+          }
+          @media #{$device-g-md} {
+            font-size: 2rem;
+            &:nth-child(2) {
+              font-size: 2.8rem;
+            }
+          }
+        }
+      }
+    }
+
+    &.--dark-mode {
+      background-color: #05015a;
+      span, p, h2, h1 { color: white; }
+      .logo_gota {
+        background-color: white;
+      }
+      .logo_name {
+        &:after { background: white; }
+      }
+    }
+  }
+}
