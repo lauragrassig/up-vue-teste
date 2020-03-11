@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="filter_select">
     <b-container>
       <div class="select">
         <span>Ordenar</span>
