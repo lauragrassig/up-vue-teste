@@ -1,17 +1,19 @@
 <template>
   <div class="home">
     <Banner/>
+    <FilterSelect />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 import Banner from '@/components/Banner.vue'
+import FilterSelect from '@/components/FilterSelect.vue'
 
 export default {
   name: 'Home',
   components: {
-    Banner
+    Banner,
+    FilterSelect
   }
 }
 </script>
