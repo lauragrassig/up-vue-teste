@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Header/>
+    <div class="space_header"></div>
     <router-view/>
   </div>
 </template>

@@ -1,0 +1,26 @@
+header {
+  position: fixed;
+  width: 100%;
+
+  // Bootstrap
+  .bg-info {
+    background-color: #fff !important;
+    box-shadow: 0px 2px 3px rgba(128, 128, 128, 0.2) !important;
+  }
+
+  .navbar-toggler {
+    background-color: $base-color;
+  }
+
+  .header_link {
+    font-size: 1.3rem;
+    padding-right: 1rem;
+    font-weight: 600;
+    color: black;
+  }
+
+  .router-link-active {
+    color: $base-color !important;
+  }
+
+}
