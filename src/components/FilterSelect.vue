@@ -12,8 +12,8 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.type" :for="fonte.key" class="fonte" @change="filterOptions($event, value)">
-              <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.type" name="optionsCheck">
+            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.typeModel" :for="fonte.key" class="fonte" @change="filterOptions($event, value)">
+              <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.typeModel" name="optionsCheck">
               <i :class="fonte.icon"></i>
               <span>{{fonte.title}}</span>
             </label>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="wrapper_cards" v-show="$route.path=='/fontes'">
-        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.type">
+        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.typeModel">
           <div class="card_icon">
             <i :class="fonte.icon"></i>
           </div>
@@ -73,6 +73,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'far fa-money-bill-alt',
           type: 'preco',
+          typeModel: 'profissional',
           price: '29,00'
         },
         {
@@ -81,6 +82,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'fas fa-coins',
           type: 'lancamento',
+          typeModel: 'profissional',
           price: '40,00'
         },
         {
@@ -89,6 +91,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'fas fa-share-alt',
           type: 'lancamento',
+          typeModel: 'profissional',
           price: '40,00'
         },
         {
@@ -97,6 +100,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'far fa-check-square',
           type: 'lancamento',
+          typeModel: 'profissional',
           price: '40,00'
         },
         {
@@ -105,6 +109,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'fas fa-car',
           type: 'lancamento',
+          typeModel: 'profissional',
           price: '40,00'
         },
         {
@@ -113,6 +118,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'fas fa-network-wired',
           type: 'preco',
+          typeModel: 'profissional',
           price: '29,00'
         },
         {
@@ -121,6 +127,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'fas fa-search',
           type: 'preco',
+          typeModel: 'profissional',
           price: '29,00'
         },
         {
@@ -129,6 +136,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'far fa-file',
           type: 'preco',
+          typeModel: 'profissional',
           price: '29,00'
         },
         {
@@ -137,6 +145,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'fas fa-address-card',
           type: 'preco',
+          typeModel: 'profissional',
           price: '29,00'
         },
         {
@@ -145,6 +154,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'fas fa-user-secret',
           type: 'preco',
+          typeModel: 'profissional',
           price: '29,00'
         },
         {
@@ -153,6 +163,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'fas fa-map-marker-alt',
           type: 'preco',
+          typeModel: 'profissional',
           price: '29,00'
         },
         {
@@ -161,6 +172,7 @@ export default {
             'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
           icon: 'fas fa-bullseye',
           type: 'preco',
+          typeModel: 'profissional',
           price: '29,00'
         }
       ],
@@ -168,55 +180,64 @@ export default {
         title: 'Profissional',
         description: '',
         icon: 'fas fa-globe',
-        type: 'profissional',
+        typeModel: 'profissional',
+        type: 'preco',
         price: '29,00'
       }, {
         title: 'Reguladores',
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-briefcase',
-        type: 'reguladores',
+        typeModel: 'reguladores',
+        type: 'preco',
         price: '40,00'
       }, {
         title: 'Sócio Ambiental',
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-tree',
-        type: 'ambiental',
+        typeModel: 'ambiental',
+        type: 'preco',
         price: '40,00'
       }, {
         title: 'Jurídico',
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-gavel',
-        type: 'juridico',
+        typeModel: 'juridico',
+        type: 'preco',
         price: '40,00'
       }, {
         title: 'Listas Restritivas',
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-ban',
-        type: 'restrititivas',
+        typeModel: 'restrititivas',
+        type: 'preco',
         price: '30,00'
       }, {
         title: 'Mídia/Internet',
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-globe-americas',
-        type: 'midia',
+        typeModel: 'midia',
+        type: 'preco',
         price: '40,00'
       }, {
         title: 'Bens e Imóveis',
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-gem',
-        type: 'imoveis',
+        typeModel: 'imoveis',
+        type: 'preco',
         price: '50,00'
       }, {
         title: 'Cadastro',
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-male',
-        type: 'cadastro',
+        typeModel: 'cadastro',
+        type: 'preco',
         price: '40,00'
       }, {
         title: 'Financeiro',
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-piggy-bank',
-        type: 'financeiro',
+        typeModel: 'financeiro',
+        type: 'preco',
         price: '100,00'
       }]
     }
@@ -266,6 +287,8 @@ export default {
     },
     showSelectedRadio (fonteList, select) {
       fonteList.forEach(fonte => {
+        console.log('aqui ta')
+
         fonte.classList.remove('-inactive')
         if (fonte.attributes.getNamedItem('data-eventtype').value !== select) {
           !fonte.classList.contains('-inactive') && fonte.classList.add('-inactive')
