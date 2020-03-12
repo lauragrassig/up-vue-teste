@@ -4,7 +4,7 @@
       <div class="select">
         <span>Ordenar</span>
         <select name="select_aplicativos" v-model="attbValue" @change="filterSelecteds()">
-          <option value="todos">Todos</option>
+          <option value="todos" selected>Todos</option>
           <option value="lancamento">Lançamento</option>
           <option value="preco">Menor Preço</option>
         </select>
@@ -136,7 +136,8 @@ export default {
       ]
     }
   },
-  attbValue: '',
+  attbValue: 'todos',
+  selected: 'todos',
   methods: {
     filterSelecteds: function () {
       const selected = this.attbValue
