@@ -17,7 +17,7 @@
       justify-content: flex-start;
       width: 100%;
     }
-    
+
     &_title {
       width: 100%;
       display: flex;
@@ -46,16 +46,16 @@
       font-size: .9rem;
       text-shadow: none;
       font-weight: bold;
+      line-height: 0.8rem;
 
       @media #{$device-g-md} {
         font-size: 1.5rem;
+        line-height: 2rem;
         text-align: justify;
       }
     }
 
     &_price {
-      padding-top: .5rem;
-
       display: flex;
       align-items: center;
       justify-content: center;
@@ -63,18 +63,23 @@
       @media #{$device-g-md} {
         justify-content: flex-start;
       }
+
       .price_price {
         padding-right: 1rem;
+
         span {
           color: $text-color;
           font-weight: 600;
           font-size: 1rem;
+
           &:nth-child(2) {
-            font-size: 2rem;
+            font-size: 1.4rem;
             padding-left: .5rem;
           }
+
           @media #{$device-g-md} {
             font-size: 2rem;
+
             &:nth-child(2) {
               font-size: 2.8rem;
             }
@@ -83,14 +88,34 @@
       }
     }
 
+    .price_button {
+      .button_default {
+        font-size: .7rem;
+
+        @media #{$device-g-md} {
+          font-size: 1rem;
+        }
+      }
+    }
+
     &.--dark-mode {
       background-color: #05015a;
-      span, p, h2, h1 { color: white; }
+
+      span,
+      p,
+      h2,
+      h1 {
+        color: white;
+      }
+
       .logo_gota {
         background-color: white;
       }
+
       .logo_name {
-        &:after { background: white; }
+        &:after {
+          background: white;
+        }
       }
     }
   }

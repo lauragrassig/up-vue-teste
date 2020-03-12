@@ -5,14 +5,13 @@
       v-model="slide"
       :interval="4000"
       controls
-      background="#d6d6d6"
+      background="#05015a"
       img-width="1024"
-      img-height="480"
-      style="text-shadow: 1px 1px 2px #333;"
+      img-height="389"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
-      <b-carousel-slide img-blank img-alt="Blank image">
+      <b-carousel-slide img-src="https://placeimg.com/1000/380/any/grayscale">
         <div class="banner">
           <div class="banner_title">
             <div class="logo--banner">
@@ -38,7 +37,7 @@
         </div>
       </b-carousel-slide>
       <b-carousel-slide img-blank img-alt="Blank image">
-        <div class="banner">
+        <div class="banner --dark-mode">
           <div class="banner_title">
             <div class="logo--banner">
               <div class="logo_gota"></div>
@@ -63,6 +62,10 @@
         </div>
       </b-carousel-slide>
     </b-carousel>
+
+    <div v-for="(card, key) in apiCards" :key="key">
+      {{ apiCards.title }}
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,18 @@
 <template>
-  <div class="fontes">
-    <h1>This is an about page</h1>
+  <div class="wrapper_fontes">
+    <Banner />
+    <FilterSelect />
   </div>
 </template>
+
+<script>
+import Banner from '../components/Banner'
+import FilterSelect from '../components/FilterSelect'
+
+export default {
+  components: {
+    Banner,
+    FilterSelect
+  }
+}
+</script>

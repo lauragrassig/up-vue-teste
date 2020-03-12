@@ -15,7 +15,8 @@ const routes = [
   {
     path: '/fontes',
     name: 'Fontes',
-    component: Fontes
+    component: Fontes,
+    meta: { hideNavigation: true }
   },
   {
     path: '/saibaMais/:typeId',

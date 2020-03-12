@@ -115,29 +115,3 @@
     }
   }
 }
-
-.select {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  @media #{$device-g-md} {
-    align-items: inherit;
-  }
-
-  span {
-    color: $text-color;
-    font-weight: 800;
-    text-transform: uppercase;
-
-    @media #{$device-g-md} {
-      font-size: 1.2rem;
-    }
-  }
-
-  select {
-    border: 1px solid rgba(128, 128, 128, .6);
-    border-radius: .2rem;
-    max-width: 10rem;
-  }
-}

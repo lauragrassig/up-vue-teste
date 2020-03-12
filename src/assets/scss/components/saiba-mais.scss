@@ -1,0 +1,41 @@
+.saiba_mais {
+  padding: 1rem 2rem;
+
+  @media #{$device-g-md} {
+    padding: 1rem 5rem;
+  }
+
+  h3 {
+    font-weight: 700;
+    color: $base-color;
+
+    @media #{$device-g-md} {
+      font-size: 2.5rem;
+    }
+  }
+
+  .saiba_description {
+    color: grey;
+    font-size: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .saiba_price {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+
+    .price_price {
+      color: $text-color;
+      font-weight: 600;
+      font-size: 1.5rem;
+
+      span {
+        &:last-child {
+          font-size: 3rem;
+          padding-right: 1.3rem;
+        }
+      }
+    }
+  }
+}
