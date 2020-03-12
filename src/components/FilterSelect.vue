@@ -12,14 +12,15 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <div v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.type" class="fonte">
+            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.type" :for="fonte.key" class="fonte" @change="filterOptions($event, value)">
+              <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.type" name="optionsCheck">
               <i :class="fonte.icon"></i>
               <span>{{fonte.title}}</span>
-            </div>
+            </label>
           </div>
         </div>
       </div>
-      <div class="wrapper_cards">
+      <div class="wrapper_cards" v-show="$route.path=='/'">
         <div v-for="(card, key) in apiCards" :key="key" class="card" :data-eventtype="card.type">
           <div class="card_icon">
             <i :class="card.icon"></i>
@@ -34,6 +35,25 @@
             <div class="more_price">R$ 29,99</div>
             <div class="more_button">
               <button class="button_default --no-bg" @click="openSaibaMais(key)">Saiba Mais</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper_cards" v-show="$route.path=='/fontes'">
+        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.type">
+          <div class="card_icon">
+            <i :class="fonte.icon"></i>
+          </div>
+          <div class="card_title">
+            <h3>{{fonte.title}}</h3>
+          </div>
+          <div class="card_description">
+            <p>{{fonte.description}}</p>
+          </div>
+          <div class="card_more">
+            <div class="more_price">R$ 29,99</div>
+            <div class="more_button">
+              <button class="button_default --no-bg" @click="openSaibaMaisFonte(key)">Saiba Mais</button>
             </div>
           </div>
         </div>
@@ -202,6 +222,7 @@ export default {
     }
   },
   attbValue: 'todos',
+  picked: 'todos',
   methods: {
     filterSelecteds: function () {
       const selected = this.attbValue
@@ -229,6 +250,27 @@ export default {
       localStorage.setItem('currentFont', JSON.stringify(this.apiCards[key]))
 
       this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
+    },
+    openSaibaMaisFonte (key) {
+      localStorage.setItem('currentFont', JSON.stringify(this.apiFonte[key]))
+
+      this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
+    },
+    filterOptions (event, value) {
+      const select = event.target.value
+      const fonteList = document.querySelectorAll('.card')
+
+      console.log(select)
+
+      this.showSelectedRadio(fonteList, select)
+    },
+    showSelectedRadio (fonteList, select) {
+      fonteList.forEach(fonte => {
+        fonte.classList.remove('-inactive')
+        if (fonte.attributes.getNamedItem('data-eventtype').value !== select) {
+          !fonte.classList.contains('-inactive') && fonte.classList.add('-inactive')
+        }
+      })
     }
   }
 }

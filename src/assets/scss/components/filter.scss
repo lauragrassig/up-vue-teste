@@ -29,6 +29,14 @@
   width: 100%;
   overflow: hidden;
 
+  .-inactive {
+    display: none !important;
+  }
+
+  input {
+    display: none;
+  }
+
   .list_fontes {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
