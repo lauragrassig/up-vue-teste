@@ -1,15 +1,20 @@
 <template>
   <div>
     teste
+    teste
+    {{ currentFonte.title}}
   </div>
 </template>
 
 <script>
 export default {
-  methods: {
-    teste: function () {
-      this.currentFonte = JSON.parse(localStorage.getItem('currentFonte'))
+  data: function () {
+    return {
+      currentFonte: ''
     }
+  },
+  created: function () {
+    this.currentFonte = JSON.parse(localStorage.getItem('currentFont'))
   }
 }
 </script>

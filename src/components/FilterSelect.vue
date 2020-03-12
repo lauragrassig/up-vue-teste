@@ -137,7 +137,6 @@ export default {
     }
   },
   attbValue: 'todos',
-  selected: 'todos',
   methods: {
     filterSelecteds: function () {
       const selected = this.attbValue
@@ -163,6 +162,8 @@ export default {
     },
     openSaibaMais (key) {
       localStorage.setItem('currentFont', JSON.stringify(this.apiCards[key]))
+
+      this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
     }
   }
 }

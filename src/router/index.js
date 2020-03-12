@@ -18,7 +18,7 @@ const routes = [
     component: Fontes
   },
   {
-    path: '/saibaMais',
+    path: '/saibaMais/:typeId',
     name: 'SaibaMais',
     component: SaibaMais
   }
