@@ -261,21 +261,18 @@ export default {
     },
     showLancamento () {
       this.apiCards.sort((a, b) => (a.type > b.type) ? 1 : -1)
-
       this.apiFonte.sort((a, b) => (a.type > b.type) ? 1 : -1)
 
       return this.apiCards
     },
     showBestPrice () {
       this.apiCards.sort((a, b) => (a.price > b.price) ? 1 : -1)
-
       this.apiFonte.sort((a, b) => (a.price > b.price) ? 1 : -1)
 
       return this.apiCards
     },
     showSelectAll () {
       this.apiCards.sort(function () { return 0.5 - Math.random() })
-
       this.apiFonte.sort(function () { return 0.5 - Math.random() })
 
       return this.apiCards
