@@ -71,10 +71,60 @@ export default {
     return {
       apiCards: [],
       apiFonte: [],
-      apiIcons: []
+      apiIcons: [
+        {
+          icon: 'far fa-money-bill-alt',
+          id: '0'
+        },
+        {
+          icon: 'fas fa-coins',
+          id: '1'
+        },
+        {
+          icon: 'fas fa-share-alt',
+          id: '2'
+        },
+        {
+          icon: 'far fa-check-square',
+          id: '3'
+        },
+        {
+          icon: 'fas fa-car',
+          id: '4'
+        },
+        {
+          icon: 'fas fa-network-wired',
+          id: '5'
+        },
+        {
+          icon: 'fas fa-search',
+          id: '6'
+        },
+        {
+          icon: 'far fa-file',
+          id: '7'
+        },
+        {
+          icon: 'fas fa-address-card',
+          id: '8'
+        },
+        {
+          icon: 'fas fa-user-secret',
+          id: '9'
+        },
+        {
+          icon: 'fas fa-map-marker-alt',
+          id: '10'
+        },
+        {
+          icon: 'fas fa-bullseye',
+          id: '11'
+        }
+      ],
+      Cards: []
     }
   },
-  created () {
+  mounted () {
     if (this.$router.currentRoute.name === 'Home') {
       axios.get('https://demo3241810.mockable.io/apps')
         .then(response => {
@@ -92,9 +142,6 @@ export default {
   methods: {
     filterSelecteds: function () {
       const selected = this.attbValue
-      const cardList = document.querySelectorAll('.card')
-
-      this.showTodos(cardList)
 
       if (selected === 'lancamento') {
         this.showLancamento()
