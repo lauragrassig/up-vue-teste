@@ -30,7 +30,7 @@
           </div>
           <div class="card_description">
             <p>{{card.description}}</p>
-            <h5>Lançamento: {{card.date}}</h5>
+            <h5>{{new Date(card.date)}} e {{moment(card.date).format('L')}}</h5>
           </div>
           <div class="card_more">
             <div class="more_price">R$ {{card.price}}</div>
@@ -106,13 +106,11 @@ export default {
     },
     showLancamento () {
       this.apiCards.sort((a, b) => (a.date > b.date) ? 1 : -1)
-      this.apiFonte.sort((a, b) => (a.date > b.date) ? 1 : -1)
 
       return this.apiCards
     },
     showBestPrice () {
       this.apiCards.sort((a, b) => (a.price > b.price) ? 1 : -1)
-      this.apiFonte.sort((a, b) => (a.price > b.price) ? 1 : -1)
 
       return this.apiCards
     },
