@@ -5,7 +5,7 @@
       <a href="#" class="back_button" @click="$router.go(-1)">
         <span><i class="fas fa-arrow-circle-left"></i></span>
       </a>
-      <h3>{{currentFonte.title}}</h3>
+      <h3>{{currentFonte.name}}</h3>
       <p class="saiba_description">{{currentFonte.description}}</p>
       <div class="saiba_price">
         <div class="price_price">
