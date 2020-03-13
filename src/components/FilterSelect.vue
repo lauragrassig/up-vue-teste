@@ -32,7 +32,7 @@
             <p>{{card.description}}</p>
           </div>
           <div class="card_more">
-            <div class="more_price">R$ 29,99</div>
+            <div class="more_price">R$ {{card.price}}</div>
             <div class="more_button">
               <button class="button_default --no-bg" @click="openSaibaMais(key)">Saiba Mais</button>
             </div>
@@ -51,7 +51,7 @@
             <p>{{fonte.description}}</p>
           </div>
           <div class="card_more">
-            <div class="more_price">R$ 29,99</div>
+            <div class="more_price">R$ {{fonte.price}}</div>
             <div class="more_button">
               <button class="button_default --no-bg" @click="openSaibaMaisFonte(key)">Saiba Mais</button>
             </div>
@@ -74,7 +74,7 @@ export default {
           icon: 'far fa-money-bill-alt',
           type: 'preco',
           typeModel: 'profissional',
-          price: '29,00'
+          price: '10,00'
         },
         {
           title: 'Enriquecimenro de Dados',
@@ -137,7 +137,7 @@ export default {
           icon: 'far fa-file',
           type: 'preco',
           typeModel: 'profissional',
-          price: '29,00'
+          price: '05,00'
         },
         {
           title: 'Ficha Cadastral',
@@ -249,23 +249,36 @@ export default {
       const selected = this.attbValue
       const cardList = document.querySelectorAll('.card')
 
-      this.showSelectAll(cardList)
+      this.showTodos(cardList)
 
-      // eslint-disable-next-line no-unused-expressions
-      selected !== 'todos' ? this.displayOnly(selected, cardList) : null
+      if (selected === 'lancamento') {
+        this.showLancamento()
+      } else if (selected === 'preco') {
+        this.showBestPrice()
+      } else if (selected === 'todos') {
+        this.showSelectAll()
+      }
     },
-    showSelectAll (cardList) {
-      cardList.forEach(card => {
-        card.classList.contains('-inactive') &&
-          card.classList.remove('-inactive')
-      })
+    showLancamento () {
+      this.apiCards.sort((a, b) => (a.type > b.type) ? 1 : -1)
+
+      this.apiFonte.sort((a, b) => (a.type > b.type) ? 1 : -1)
+
+      return this.apiCards
     },
-    displayOnly (value, cardList) {
-      cardList.forEach(card => {
-        if (card.attributes.getNamedItem('data-eventtype').value !== value) {
-          !card.classList.contains('-inactive') && card.classList.add('-inactive')
-        }
-      })
+    showBestPrice () {
+      this.apiCards.sort((a, b) => (a.price > b.price) ? 1 : -1)
+
+      this.apiFonte.sort((a, b) => (a.price > b.price) ? 1 : -1)
+
+      return this.apiCards
+    },
+    showSelectAll () {
+      this.apiCards.sort(function () { return 0.5 - Math.random() })
+
+      this.apiFonte.sort(function () { return 0.5 - Math.random() })
+
+      return this.apiCards
     },
     openSaibaMais (key) {
       localStorage.setItem('currentFont', JSON.stringify(this.apiCards[key]))
@@ -298,6 +311,12 @@ export default {
     cleanOptionsSelected () {
       [...document.querySelectorAll('.card')].map(el => {
         !el.classList.contains('-inactive') && el.classList.add('-inactive')
+      })
+    },
+    showTodos (cardList) {
+      cardList.forEach(card => {
+        card.classList.contains('-inactive') &&
+        card.classList.remove('-inactive')
       })
     }
   }

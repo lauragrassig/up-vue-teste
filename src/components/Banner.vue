@@ -5,9 +5,6 @@
       v-model="slide"
       :interval="4000"
       controls
-      background="#05015a"
-      img-width="1024"
-      img-height="389"
       @sliding-start="onSlideStart"
       @sliding-end="onSlideEnd"
     >
@@ -36,7 +33,7 @@
           </div>
         </div>
       </b-carousel-slide>
-      <b-carousel-slide img-blank img-alt="Blank image">
+      <b-carousel-slide img-src="https://dummyimage.com/1000x380/05015a/0011ff">
         <div class="banner --dark-mode">
           <div class="banner_title">
             <div class="logo--banner">
