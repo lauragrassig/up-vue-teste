@@ -12,7 +12,7 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.typeModel" :for="fonte.key" class="fonte" @change="filterOptions($event, value)">
+            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.type" :data-typeProduct="fonte.typeModel" :for="fonte.key" class="fonte" @click="filterOptions($event, value)">
               <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.typeModel" name="optionsCheck">
               <i :class="fonte.icon"></i>
               <span>{{fonte.title}}</span>
@@ -40,7 +40,7 @@
         </div>
       </div>
       <div class="wrapper_cards" v-show="$route.path=='/fontes'">
-        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.typeModel">
+        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.type" :data-typeProduct="fonte.typeModel">
           <div class="card_icon">
             <i :class="fonte.icon"></i>
           </div>
@@ -216,7 +216,7 @@ export default {
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-globe-americas',
         typeModel: 'midia',
-        type: 'preco',
+        type: 'lancamento',
         price: '40,00'
       }, {
         title: 'Bens e Imóveis',
@@ -280,20 +280,15 @@ export default {
     filterOptions (event, value) {
       const select = event.target.value
       const fonteList = document.querySelectorAll('.card')
-
-      console.log(select)
-
-      this.showSelectedRadio(fonteList, select)
-    },
-    showSelectedRadio (fonteList, select) {
-      fonteList.forEach(fonte => {
-        console.log('aqui ta')
-
-        fonte.classList.remove('-inactive')
-        if (fonte.attributes.getNamedItem('data-eventtype').value !== select) {
-          !fonte.classList.contains('-inactive') && fonte.classList.add('-inactive')
-        }
-      })
+      const selectValue = document.getElementsByName('select_aplicativos')[0].value
+      if (selectValue !== '') {
+        [...document.querySelectorAll('.card')].map(el => {
+          !el.classList.contains('-inactive') && el.classList.add('-inactive')
+        }),
+        [...document.querySelectorAll([data-eventtype="${selectValue}"][data-typeproduct="${value}"])].map(el => {
+            el.classList.contains('-inactive') && el.classList.remove('-inactive');
+        })
+      }
     }
   }
 }
