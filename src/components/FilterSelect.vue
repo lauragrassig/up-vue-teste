@@ -12,7 +12,7 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.type" :data-typeProduct="fonte.typeModel" :for="fonte.key" class="fonte" @click="filterOptions($event, value)">
+            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.type" :data-typeProduct="fonte.typeModel" :for="fonte.key" class="fonte" @change="filterOptions($event)">
               <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.typeModel" name="optionsCheck">
               <i :class="fonte.icon"></i>
               <span>{{fonte.title}}</span>
@@ -195,7 +195,7 @@ export default {
         description: 'O aplicativo Balanço Patrimonial realiza a consulta de todos os balanços que são publicados nos diários oficiais de empresas S.A., de capital aberto e limitadas (LTDA) de grande porte.',
         icon: 'fas fa-tree',
         typeModel: 'ambiental',
-        type: 'preco',
+        type: 'lancamento',
         price: '40,00'
       }, {
         title: 'Jurídico',
@@ -279,16 +279,26 @@ export default {
     },
     filterOptions (event, value) {
       const select = event.target.value
-      const fonteList = document.querySelectorAll('.card')
       const selectValue = document.getElementsByName('select_aplicativos')[0].value
+
       if (selectValue !== '') {
-        [...document.querySelectorAll('.card')].map(el => {
-          !el.classList.contains('-inactive') && el.classList.add('-inactive')
-        }),
-        [...document.querySelectorAll([data-eventtype="${selectValue}"][data-typeproduct="${value}"])].map(el => {
-            el.classList.contains('-inactive') && el.classList.remove('-inactive');
+        this.cleanOptionsSelected();
+
+        [...document.querySelectorAll(`[data-typeproduct="${select}"][data-eventtype="${selectValue}"]`)].map(el => {
+          el.classList.contains('-inactive') && el.classList.remove('-inactive')
+        })
+      } else {
+        this.cleanOptionsSelected();
+
+        [...document.querySelectorAll(`[data-typeproduct="${select}"]`)].map(el => {
+          el.classList.contains('-inactive') && el.classList.remove('-inactive')
         })
       }
+    },
+    cleanOptionsSelected () {
+      [...document.querySelectorAll('.card')].map(el => {
+        !el.classList.contains('-inactive') && el.classList.add('-inactive')
+      })
     }
   }
 }
