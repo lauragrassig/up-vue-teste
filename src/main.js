@@ -20,6 +20,8 @@ Vue.prototype.moment = moment
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
+moment.locale('pt-br')
+
 new Vue({
   router,
   style,

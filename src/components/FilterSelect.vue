@@ -30,7 +30,7 @@
           </div>
           <div class="card_description">
             <p>{{card.description}}</p>
-            <h5>{{new Date(card.date)}} e {{moment(card.date).format('L')}}</h5>
+            <h5>{{moment(card.date).format('L')}}</h5>
           </div>
           <div class="card_more">
             <div class="more_price">R$ {{card.price}}</div>
@@ -232,23 +232,27 @@ export default {
       this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
     },
     filterOptions (event, value) {
-      const select = event.target.value
-      const selectValue = document.getElementsByName('select_aplicativos')[0].value
-
-      if (selectValue !== '') {
-        this.cleanOptionsSelected();
-
-        [...document.querySelectorAll(`[data-typeproduct="${select}"][data-eventtype="${selectValue}"]`)].map(el => {
-          el.classList.contains('-inactive') && el.classList.remove('-inactive')
-        })
-      } else {
-        this.cleanOptionsSelected();
-
-        [...document.querySelectorAll(`[data-typeproduct="${select}"]`)].map(el => {
-          el.classList.contains('-inactive') && el.classList.remove('-inactive')
-        })
-      }
+      console.log(event)
+      console.log(value)
     },
+    // filterOptions (event, value) {
+    //   const select = event.target.value
+    //   const selectValue = document.getElementsByName('select_aplicativos')[0].value
+
+    //   if (selectValue !== '') {
+    //     this.cleanOptionsSelected();
+
+    //     [...document.querySelectorAll(`[data-typeproduct="${select}"][data-eventtype="${selectValue}"]`)].map(el => {
+    //       el.classList.contains('-inactive') && el.classList.remove('-inactive')
+    //     })
+    //   } else {
+    //     this.cleanOptionsSelected();
+
+    //     [...document.querySelectorAll(`[data-typeproduct="${select}"]`)].map(el => {
+    //       el.classList.contains('-inactive') && el.classList.remove('-inactive')
+    //     })
+    //   }
+    // },
     cleanOptionsSelected () {
       [...document.querySelectorAll('.card')].map(el => {
         !el.classList.contains('-inactive') && el.classList.add('-inactive')
