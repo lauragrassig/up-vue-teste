@@ -1,7 +1,7 @@
 <template>
   <div class="filter_select">
     <b-container>
-      <div class="select">
+      <div class="select" v-show="$route.path=='/'">
         <span>Ordenar</span>
         <select name="select_aplicativos" v-model="attbValue" @change="filterSelecteds()">
           <option value="todos" selected>Todos</option>
@@ -121,6 +121,44 @@ export default {
           icon: 'fas fa-bullseye'
         }
       ],
+      apiIconsFont: [
+        {
+          id: 0,
+          icon: 'fas fa-globe'
+        },
+        {
+          id: 1,
+          icon: 'fas fa-briefcase'
+        },
+        {
+          id: 2,
+          icon: 'fas fa-tree'
+        },
+        {
+          id: 3,
+          icon: 'fas fa-gavel'
+        },
+        {
+          id: 4,
+          icon: 'fas fa-ban'
+        },
+        {
+          id: 5,
+          icon: 'fas fa-globe-americas'
+        },
+        {
+          id: 6,
+          icon: 'fas fa-gem'
+        },
+        {
+          id: 7,
+          icon: 'fas fa-male'
+        },
+        {
+          id: 8,
+          icon: 'fas fa-piggy-bank'
+        }
+      ],
       Cards: []
     }
   },
@@ -129,12 +167,13 @@ export default {
       axios.get('https://demo3241810.mockable.io/apps')
         .then(response => {
           this.apiCards = response.data.apps
-          this.addIcon()
+          this.addIcon('home')
         })
     } else {
       axios.get('https://demo3241810.mockable.io/sources')
         .then(response => {
           this.apiFonte = response.data.sources
+          this.addIcon('source')
         })
     }
   },
@@ -164,17 +203,23 @@ export default {
     },
     showSelectAll () {
       this.apiCards.sort(function () { return 0.5 - Math.random() })
-      this.apiFonte.sort(function () { return 0.5 - Math.random() })
 
       return this.apiCards
     },
-    addIcon () {
-      this.apiCards.map((card, i) => {
-        if (card.id === this.apiIcons[i].id) {
-          card.icon = this.apiIcons[i].icon
-        }
-      })
-      console.log(this.apiCards)
+    addIcon (element) {
+      if (element === 'source') {
+        this.apiFonte.map((card, i) => {
+          if (card.id === this.apiIconsFont[i].id) {
+            card.icon = this.apiIconsFont[i].icon
+          }
+        })
+      } else {
+        this.apiCards.map((card, i) => {
+          if (card.id === this.apiIcons[i].id) {
+            card.icon = this.apiIcons[i].icon
+          }
+        })
+      }
     },
     openSaibaMais (key) {
       localStorage.setItem('currentFont', JSON.stringify(this.apiCards[key]))
