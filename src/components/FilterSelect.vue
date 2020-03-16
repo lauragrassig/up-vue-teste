@@ -12,7 +12,7 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.type" :data-typeProduct="fonte.typeModel" :for="fonte.key" class="fonte" @change="filterOptions($event)">
+            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.name" :for="fonte.key" class="fonte" @change="filterOptions($event, fonte.name)">
               <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.typeModel" name="optionsCheck">
               <i :class="fonte.icon"></i>
               <span>{{fonte.name}}</span>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="wrapper_cards" v-show="$route.path=='/fontes'">
-        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.type">
+        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.name">
           <div class="card_icon">
             <i :class="fonte.icon"></i>
           </div>
@@ -232,27 +232,10 @@ export default {
       this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
     },
     filterOptions (event, value) {
-      console.log(event)
-      console.log(value)
+      this.fonte.map(el => {
+        console.log(value)
+      })
     },
-    // filterOptions (event, value) {
-    //   const select = event.target.value
-    //   const selectValue = document.getElementsByName('select_aplicativos')[0].value
-
-    //   if (selectValue !== '') {
-    //     this.cleanOptionsSelected();
-
-    //     [...document.querySelectorAll(`[data-typeproduct="${select}"][data-eventtype="${selectValue}"]`)].map(el => {
-    //       el.classList.contains('-inactive') && el.classList.remove('-inactive')
-    //     })
-    //   } else {
-    //     this.cleanOptionsSelected();
-
-    //     [...document.querySelectorAll(`[data-typeproduct="${select}"]`)].map(el => {
-    //       el.classList.contains('-inactive') && el.classList.remove('-inactive')
-    //     })
-    //   }
-    // },
     cleanOptionsSelected () {
       [...document.querySelectorAll('.card')].map(el => {
         !el.classList.contains('-inactive') && el.classList.add('-inactive')
