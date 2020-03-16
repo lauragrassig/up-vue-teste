@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="wrapper_cards" v-show="$route.path=='/fontes'">
-        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.type" :data-typeProduct="fonte.typeModel">
+        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.type">
           <div class="card_icon">
             <i :class="fonte.icon"></i>
           </div>
