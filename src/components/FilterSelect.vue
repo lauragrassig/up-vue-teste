@@ -73,62 +73,63 @@ export default {
       apiFonte: [],
       apiIcons: [
         {
-          icon: 'far fa-money-bill-alt',
-          id: '0'
+          id: 0,
+          icon: 'far fa-money-bill-alt'
         },
         {
-          icon: 'fas fa-coins',
-          id: '1'
+          id: 1,
+          icon: 'fas fa-coins'
         },
         {
-          icon: 'fas fa-share-alt',
-          id: '2'
+          id: 2,
+          icon: 'fas fa-share-alt'
         },
         {
-          icon: 'far fa-check-square',
-          id: '3'
+          id: 3,
+          icon: 'far fa-check-square'
         },
         {
-          icon: 'fas fa-car',
-          id: '4'
+          id: 4,
+          icon: 'fas fa-car'
         },
         {
-          icon: 'fas fa-network-wired',
-          id: '5'
+          id: 5,
+          icon: 'fas fa-network-wired'
         },
         {
-          icon: 'fas fa-search',
-          id: '6'
+          id: 6,
+          icon: 'fas fa-search'
         },
         {
-          icon: 'far fa-file',
-          id: '7'
+          id: 7,
+          icon: 'far fa-file'
         },
         {
-          icon: 'fas fa-address-card',
-          id: '8'
+          id: 8,
+          icon: 'fas fa-address-card'
         },
         {
-          icon: 'fas fa-user-secret',
-          id: '9'
+          id: 9,
+          icon: 'fas fa-user-secret'
         },
         {
-          icon: 'fas fa-map-marker-alt',
-          id: '10'
+          id: 10,
+          icon: 'fas fa-map-marker-alt'
         },
         {
-          icon: 'fas fa-bullseye',
-          id: '11'
+          id: 11,
+          icon: 'fas fa-bullseye'
         }
       ],
       Cards: []
     }
   },
-  mounted () {
+  created () {
     if (this.$router.currentRoute.name === 'Home') {
       axios.get('https://demo3241810.mockable.io/apps')
         .then(response => {
           this.apiCards = response.data.apps
+          this.addIcon()
         })
     } else {
       axios.get('https://demo3241810.mockable.io/sources')
@@ -166,6 +167,14 @@ export default {
       this.apiFonte.sort(function () { return 0.5 - Math.random() })
 
       return this.apiCards
+    },
+    addIcon () {
+      this.apiCards.map((card, i) => {
+        if (card.id === this.apiIcons[i].id) {
+          card.icon = this.apiIcons[i].icon
+        }
+      })
+      console.log(this.apiCards)
     },
     openSaibaMais (key) {
       localStorage.setItem('currentFont', JSON.stringify(this.apiCards[key]))
