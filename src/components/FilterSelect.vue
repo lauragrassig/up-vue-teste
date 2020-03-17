@@ -12,8 +12,8 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.name" :for="fonte.key" class="fonte" @change="filterOptions($event, fonte.name)">
-              <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.typeModel" name="optionsCheck">
+            <label v-for="(fonte, key) in apiFonte" :key="key" :value="fonte.name" :for="fonte.key" class="fonte" @change="filterOptions($event, fonte.name)">
+              <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.name" name="optionsCheck">
               <i :class="fonte.icon"></i>
               <span>{{fonte.name}}</span>
             </label>
@@ -232,9 +232,9 @@ export default {
       this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
     },
     filterOptions (event, value) {
-      this.fonte.map(el => {
-        console.log(value)
-      })
+      if (value === this.Fonte.value) {
+        console.log('teste')
+      }
     },
     cleanOptionsSelected () {
       [...document.querySelectorAll('.card')].map(el => {
