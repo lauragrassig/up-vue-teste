@@ -3,7 +3,7 @@
     <b-container>
       <div class="select" v-show="$route.path=='/'">
         <span>Ordenar</span>
-        <select name="select_aplicativos" v-model="attbValue" @change="filterSelecteds()">
+        <select name="select_aplicativos" @change="filterSelecteds($event.target.value)">
           <option value="todos" selected>Todos</option>
           <option value="lancamento">Lançamento</option>
           <option value="preco">Menor Preço</option>
@@ -67,6 +67,9 @@
 import axios from 'axios'
 
 export default {
+  props: [
+    'teste'
+  ],
   data () {
     return {
       apiCards: [],
@@ -182,16 +185,11 @@ export default {
   attbValue: 'todos',
   picked: 'todos',
   methods: {
-    filterSelecteds: function () {
-      const selected = this.attbValue
+    filterSelecteds: function (value) {
+      if (value === 'lancamento') { return this.showLancamento() }
+      if (value === 'preco') { return this.showBestPrice() }
 
-      if (selected === 'lancamento') {
-        this.showLancamento()
-      } else if (selected === 'preco') {
-        this.showBestPrice()
-      } else if (selected === 'todos') {
-        this.showSelectAll()
-      }
+      return this.showSelectAll()
     },
     showLancamento () {
       this.apiCards.sort((a, b) => (a.date < b.date) ? 1 : -1)
@@ -240,17 +238,6 @@ export default {
         if (value === el.name) {
           return el
         }
-      })
-    },
-    cleanOptionsSelected () {
-      [...document.querySelectorAll('.card')].map(el => {
-        !el.classList.contains('-inactive') && el.classList.add('-inactive')
-      })
-    },
-    showTodos (cardList) {
-      cardList.forEach(card => {
-        card.classList.contains('-inactive') &&
-        card.classList.remove('-inactive')
       })
     }
   }

@@ -7,7 +7,7 @@
 
 <script>
 import Banner from '../components/Banner'
-import FilterSelect from '../components/FilterSelect'
+import FilterSelect from '@/components/pages/FilterSelect.vue'
 
 export default {
   components: {
