@@ -1,7 +1,7 @@
 <template>
   <div class="filter_select">
     <b-container>
-      <div class="select">
+      <div class="select" v-show="$route.path=='/'">
         <span>Ordenar</span>
         <select name="select_aplicativos" v-model="attbValue" @change="filterSelecteds()">
           <option value="todos" selected>Todos</option>
@@ -12,8 +12,8 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <label v-for="(fonte, key) in apiFonte" :key="key" :data-eventtype="fonte.type" :data-typeProduct="fonte.typeModel" :for="fonte.key" class="fonte" @change="filterOptions($event)">
-              <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.typeModel" name="optionsCheck">
+            <label v-for="(fonte, key) in apiFonte" :key="key" :value="fonte.name" :for="fonte.key" class="fonte" @change="filterOptions($event, fonte.name)">
+              <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.name" name="optionsCheck">
               <i :class="fonte.icon"></i>
               <span>{{fonte.name}}</span>
             </label>
@@ -30,7 +30,7 @@
           </div>
           <div class="card_description">
             <p>{{card.description}}</p>
-            <h5>Lançamento: {{card.date}}</h5>
+            <h5>{{moment(card.date).format('L')}}</h5>
           </div>
           <div class="card_more">
             <div class="more_price">R$ {{card.price}}</div>
@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="wrapper_cards" v-show="$route.path=='/fontes'">
-        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.type" :data-typeProduct="fonte.typeModel">
+        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.name">
           <div class="card_icon">
             <i :class="fonte.icon"></i>
           </div>
@@ -71,7 +71,95 @@ export default {
     return {
       apiCards: [],
       apiFonte: [],
-      apiIcons: []
+      apiIcons: [
+        {
+          id: 0,
+          icon: 'far fa-money-bill-alt'
+        },
+        {
+          id: 1,
+          icon: 'fas fa-coins'
+        },
+        {
+          id: 2,
+          icon: 'fas fa-share-alt'
+        },
+        {
+          id: 3,
+          icon: 'far fa-check-square'
+        },
+        {
+          id: 4,
+          icon: 'fas fa-car'
+        },
+        {
+          id: 5,
+          icon: 'fas fa-network-wired'
+        },
+        {
+          id: 6,
+          icon: 'fas fa-search'
+        },
+        {
+          id: 7,
+          icon: 'far fa-file'
+        },
+        {
+          id: 8,
+          icon: 'fas fa-address-card'
+        },
+        {
+          id: 9,
+          icon: 'fas fa-user-secret'
+        },
+        {
+          id: 10,
+          icon: 'fas fa-map-marker-alt'
+        },
+        {
+          id: 11,
+          icon: 'fas fa-bullseye'
+        }
+      ],
+      apiIconsFont: [
+        {
+          id: 0,
+          icon: 'fas fa-globe'
+        },
+        {
+          id: 1,
+          icon: 'fas fa-briefcase'
+        },
+        {
+          id: 2,
+          icon: 'fas fa-tree'
+        },
+        {
+          id: 3,
+          icon: 'fas fa-gavel'
+        },
+        {
+          id: 4,
+          icon: 'fas fa-ban'
+        },
+        {
+          id: 5,
+          icon: 'fas fa-globe-americas'
+        },
+        {
+          id: 6,
+          icon: 'fas fa-gem'
+        },
+        {
+          id: 7,
+          icon: 'fas fa-male'
+        },
+        {
+          id: 8,
+          icon: 'fas fa-piggy-bank'
+        }
+      ],
+      Cards: []
     }
   },
   created () {
@@ -79,11 +167,13 @@ export default {
       axios.get('https://demo3241810.mockable.io/apps')
         .then(response => {
           this.apiCards = response.data.apps
+          this.addIcon('home')
         })
     } else {
       axios.get('https://demo3241810.mockable.io/sources')
         .then(response => {
           this.apiFonte = response.data.sources
+          this.addIcon('source')
         })
     }
   },
@@ -92,9 +182,6 @@ export default {
   methods: {
     filterSelecteds: function () {
       const selected = this.attbValue
-      const cardList = document.querySelectorAll('.card')
-
-      this.showTodos(cardList)
 
       if (selected === 'lancamento') {
         this.showLancamento()
@@ -106,21 +193,33 @@ export default {
     },
     showLancamento () {
       this.apiCards.sort((a, b) => (a.date > b.date) ? 1 : -1)
-      this.apiFonte.sort((a, b) => (a.date > b.date) ? 1 : -1)
 
       return this.apiCards
     },
     showBestPrice () {
       this.apiCards.sort((a, b) => (a.price > b.price) ? 1 : -1)
-      this.apiFonte.sort((a, b) => (a.price > b.price) ? 1 : -1)
 
       return this.apiCards
     },
     showSelectAll () {
       this.apiCards.sort(function () { return 0.5 - Math.random() })
-      this.apiFonte.sort(function () { return 0.5 - Math.random() })
 
       return this.apiCards
+    },
+    addIcon (element) {
+      if (element === 'source') {
+        this.apiFonte.map((card, i) => {
+          if (card.id === this.apiIconsFont[i].id) {
+            card.icon = this.apiIconsFont[i].icon
+          }
+        })
+      } else {
+        this.apiCards.map((card, i) => {
+          if (card.id === this.apiIcons[i].id) {
+            card.icon = this.apiIcons[i].icon
+          }
+        })
+      }
     },
     openSaibaMais (key) {
       localStorage.setItem('currentFont', JSON.stringify(this.apiCards[key]))
@@ -133,21 +232,8 @@ export default {
       this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
     },
     filterOptions (event, value) {
-      const select = event.target.value
-      const selectValue = document.getElementsByName('select_aplicativos')[0].value
-
-      if (selectValue !== '') {
-        this.cleanOptionsSelected();
-
-        [...document.querySelectorAll(`[data-typeproduct="${select}"][data-eventtype="${selectValue}"]`)].map(el => {
-          el.classList.contains('-inactive') && el.classList.remove('-inactive')
-        })
-      } else {
-        this.cleanOptionsSelected();
-
-        [...document.querySelectorAll(`[data-typeproduct="${select}"]`)].map(el => {
-          el.classList.contains('-inactive') && el.classList.remove('-inactive')
-        })
+      if (value === this.Fonte.value) {
+        console.log('teste')
       }
     },
     cleanOptionsSelected () {
