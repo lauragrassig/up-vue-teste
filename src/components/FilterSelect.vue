@@ -12,7 +12,7 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <label v-for="(fonte, key) in apiFonte" :key="key" :value="fonte.name" :for="fonte.key" class="fonte" @change="filterOptions($event, fonte.name)">
+            <label v-for="(fonte, key) in FonteReturn" :key="key" :value="fonte.name" :for="fonte.key" class="fonte" @change="filterOptions($event, fonte.name)">
               <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.name" name="optionsCheck">
               <i :class="fonte.icon"></i>
               <span>{{fonte.name}}</span>
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="wrapper_cards" v-show="$route.path=='/'">
-        <div v-for="(card, key) in apiCards" :key="key" class="card" :data-eventtype="card.type">
+        <div v-for="(card, key) in apiCards" :key="key" class="card" :class="{'teste' : card.date = card.date }" :data-eventtype="card.type">
           <div class="card_icon">
             <i :class="card.icon"></i>
           </div>
@@ -71,6 +71,7 @@ export default {
     return {
       apiCards: [],
       apiFonte: [],
+      FonteReturn: [],
       apiIcons: [
         {
           id: 0,
@@ -173,6 +174,7 @@ export default {
       axios.get('https://demo3241810.mockable.io/sources')
         .then(response => {
           this.apiFonte = response.data.sources
+          this.FonteReturn = this.apiFonte
           this.addIcon('source')
         })
     }
@@ -192,7 +194,7 @@ export default {
       }
     },
     showLancamento () {
-      this.apiCards.sort((a, b) => (a.date > b.date) ? 1 : -1)
+      this.apiCards.sort((a, b) => (a.date < b.date) ? 1 : -1)
 
       return this.apiCards
     },
@@ -232,9 +234,13 @@ export default {
       this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
     },
     filterOptions (event, value) {
-      if (value === this.Fonte.value) {
-        console.log('teste')
-      }
+      this.apiFonte = this.FonteReturn
+
+      this.apiFonte = this.apiFonte.filter(el => {
+        if (value === el.name) {
+          return el
+        }
+      })
     },
     cleanOptionsSelected () {
       [...document.querySelectorAll('.card')].map(el => {
