@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="wrapper_cards" v-show="$route.path=='/'">
-        <div v-for="(card, key) in apiCards" :key="key" class="card" :class="{'teste' : card.date = card.date }" :data-eventtype="card.type">
+        <div v-for="(card, key) in apiCards" :key="key" class="card" :data-eventtype="card.type">
           <div class="card_icon">
             <i :class="card.icon"></i>
           </div>
