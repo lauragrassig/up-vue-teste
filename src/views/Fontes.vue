@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper_fontes">
     <Banner />
-    <FilterSelect :apiCards="apiCards" :FonteReturn="FonteReturn"/>
+    <FilterSelect v-bind:apiCards="apiCards" :FonteReturn="FonteReturn" :loading="loading"/>
   </div>
 </template>
 
@@ -18,6 +18,7 @@ export default {
   },
   data () {
     return {
+      loadig: true,
       apiCards: [],
       apiIcons: [
         {
@@ -60,13 +61,17 @@ export default {
       FonteReturn: []
     }
   },
-  created () {
+  created: function () {
     axios.get('https://demo3241810.mockable.io/sources')
-      .then(response => {
+      .then(function (response) {
+        this.loading = false
         this.apiCards = response.data.sources
         this.FonteReturn = this.apiCards
         this.addIcon()
-      })
+      }.bind(this))
+      .catch(function () {
+        this.loading = false
+      }.bind(this))
   },
   methods: {
     addIcon (element) {

@@ -9,6 +9,9 @@
           <option value="preco">Menor Preço</option>
         </select>
       </div>
+      <div class="loader" v-if="loading">
+        <img src="https://i.ya-webdesign.com/images/loading-gif-png-5.gif"/>
+      </div>
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
@@ -33,7 +36,7 @@
             <h5>{{moment(card.date).format('L')}}</h5>
           </div>
           <div class="card_more">
-            <div class="more_price">R$ {{card.price}}</div>
+            <div class="more_price" v-show="$route.path=='/'">R$ {{card.price}}</div>
             <div class="more_button">
               <button class="button_default --no-bg" @click="openSaibaMais(key)">Saiba Mais</button>
             </div>
@@ -48,7 +51,8 @@
 export default {
   props: [
     'apiCards',
-    'FonteReturn'
+    'FonteReturn',
+    'loading'
   ],
   attbValue: 'todos',
   picked: 'todos',

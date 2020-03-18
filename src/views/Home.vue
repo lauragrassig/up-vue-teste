@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Banner/>
-    <FilterSelect v-bind:apiCards="apiCards"/>
+    <FilterSelect v-bind:apiCards="apiCards" :loading="loading"/>
   </div>
 </template>
 
@@ -69,15 +69,20 @@ export default {
           id: 11,
           icon: 'fas fa-bullseye'
         }
-      ]
+      ],
+      loading: true
     }
   },
-  created () {
+  created: function () {
     axios.get('https://demo3241810.mockable.io/apps')
-      .then(response => {
+      .then(function (response) {
         this.apiCards = response.data.apps
         this.addIcon()
-      })
+        this.loading = false
+      }.bind(this))
+      .catch(function () {
+        this.loading = false
+      }.bind(this))
   },
   methods: {
     addIcon (element) {
