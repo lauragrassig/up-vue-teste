@@ -33,8 +33,6 @@ export default {
   },
   created: function () {
     this.currentFonte = JSON.parse(localStorage.getItem('currentFont'))
-
-    this.currentCard = JSON.parse(localStorage.getItem('currentCard'))
   }
 }
 </script>

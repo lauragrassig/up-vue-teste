@@ -20,8 +20,8 @@
           </div>
         </div>
       </div>
-      <div class="wrapper_cards" v-show="$route.path=='/'">
-        <div v-for="(card, key) in apiCards" :key="key" class="card" :data-eventtype="card.type">
+      <div class="wrapper_cards">
+        <div v-for="(card, key) in apiCards" :key="key" class="card">
           <div class="card_icon">
             <i :class="card.icon"></i>
           </div>
@@ -40,148 +40,16 @@
           </div>
         </div>
       </div>
-      <div class="wrapper_cards" v-show="$route.path=='/fontes'">
-        <div v-for="(fonte, key) in apiFonte" :key="key" class="card" :data-eventtype="fonte.name">
-          <div class="card_icon">
-            <i :class="fonte.icon"></i>
-          </div>
-          <div class="card_title">
-            <h3>{{fonte.name}}</h3>
-          </div>
-          <div class="card_description">
-            <p>{{fonte.description}}</p>
-          </div>
-          <div class="card_more">
-            <div class="more_price">R$ {{fonte.price}}</div>
-            <div class="more_button">
-              <button class="button_default --no-bg" @click="openSaibaMaisFonte(key)">Saiba Mais</button>
-            </div>
-          </div>
-        </div>
-      </div>
     </b-container>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   props: [
-    'teste'
+    'apiCards',
+    'FonteReturn'
   ],
-  data () {
-    return {
-      apiCards: [],
-      apiFonte: [],
-      FonteReturn: [],
-      apiIcons: [
-        {
-          id: 0,
-          icon: 'far fa-money-bill-alt'
-        },
-        {
-          id: 1,
-          icon: 'fas fa-coins'
-        },
-        {
-          id: 2,
-          icon: 'fas fa-share-alt'
-        },
-        {
-          id: 3,
-          icon: 'far fa-check-square'
-        },
-        {
-          id: 4,
-          icon: 'fas fa-car'
-        },
-        {
-          id: 5,
-          icon: 'fas fa-network-wired'
-        },
-        {
-          id: 6,
-          icon: 'fas fa-search'
-        },
-        {
-          id: 7,
-          icon: 'far fa-file'
-        },
-        {
-          id: 8,
-          icon: 'fas fa-address-card'
-        },
-        {
-          id: 9,
-          icon: 'fas fa-user-secret'
-        },
-        {
-          id: 10,
-          icon: 'fas fa-map-marker-alt'
-        },
-        {
-          id: 11,
-          icon: 'fas fa-bullseye'
-        }
-      ],
-      apiIconsFont: [
-        {
-          id: 0,
-          icon: 'fas fa-globe'
-        },
-        {
-          id: 1,
-          icon: 'fas fa-briefcase'
-        },
-        {
-          id: 2,
-          icon: 'fas fa-tree'
-        },
-        {
-          id: 3,
-          icon: 'fas fa-gavel'
-        },
-        {
-          id: 4,
-          icon: 'fas fa-ban'
-        },
-        {
-          id: 5,
-          icon: 'fas fa-globe-americas'
-        },
-        {
-          id: 6,
-          icon: 'fas fa-gem'
-        },
-        {
-          id: 7,
-          icon: 'fas fa-male'
-        },
-        {
-          id: 8,
-          icon: 'fas fa-piggy-bank'
-        }
-      ],
-      Cards: []
-    }
-  },
-  created () {
-    if (this.$router.currentRoute.name === 'Home') {
-      axios.get('https://demo3241810.mockable.io/apps')
-        .then(response => {
-          this.apiCards = response.data.apps
-          this.addIcon('home')
-        })
-    } else {
-      axios.get('https://demo3241810.mockable.io/sources')
-        .then(response => {
-          this.apiFonte = response.data.sources
-          this.FonteReturn = this.apiFonte
-          this.addIcon('source')
-        })
-    }
-  },
   attbValue: 'todos',
   picked: 'todos',
   methods: {
@@ -206,35 +74,15 @@ export default {
 
       return this.apiCards
     },
-    addIcon (element) {
-      if (element === 'source') {
-        this.apiFonte.map((card, i) => {
-          if (card.id === this.apiIconsFont[i].id) {
-            card.icon = this.apiIconsFont[i].icon
-          }
-        })
-      } else {
-        this.apiCards.map((card, i) => {
-          if (card.id === this.apiIcons[i].id) {
-            card.icon = this.apiIcons[i].icon
-          }
-        })
-      }
-    },
     openSaibaMais (key) {
       localStorage.setItem('currentFont', JSON.stringify(this.apiCards[key]))
 
       this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
     },
-    openSaibaMaisFonte (key) {
-      localStorage.setItem('currentFont', JSON.stringify(this.apiFonte[key]))
-
-      this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
-    },
     filterOptions (event, value) {
-      this.apiFonte = this.FonteReturn
+      this.apiCards = this.FonteReturn
 
-      this.apiFonte = this.apiFonte.filter(el => {
+      this.apiCards = this.apiCards.filter(el => {
         if (value === el.name) {
           return el
         }
