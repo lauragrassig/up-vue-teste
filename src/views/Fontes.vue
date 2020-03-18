@@ -9,7 +9,7 @@
 import axios from 'axios'
 
 import Banner from '../components/Banner'
-import FilterSelect from '@/components/pages/FilterSelect.vue'
+import FilterSelect from '@/components/FilterSelect.vue'
 
 export default {
   components: {
