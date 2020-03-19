@@ -1,11 +1,16 @@
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './App.vue'
 import router from './router'
 import vSelect from 'vue-select'
 import moment from 'moment'
+import store from './store/store'
 
 // Bootstrap
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import {
+  BootstrapVue,
+  IconsPlugin
+} from 'bootstrap-vue'
 
 // Styles
 import style from './assets/scss/style.scss'
@@ -17,6 +22,7 @@ Vue.component('v-select', vSelect)
 
 Vue.prototype.moment = moment
 
+Vue.use(Vuex)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
@@ -24,6 +30,7 @@ moment.locale('pt-br')
 
 new Vue({
   router,
+  store,
   style,
   render: h => h(App)
 }).$mount('#app')

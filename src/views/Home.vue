@@ -2,12 +2,14 @@
   <div class="home">
     <Banner/>
     <FilterSelect v-bind:apiCards="apiCards" :loading="loading"/>
+            <tr v-for="(card, key) in apiCards" :key="key">
+        <td>{{card.name}}</td>
+      </tr>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
+import { mapState } from 'vuex'
 import Banner from '@/components/Banner.vue'
 import FilterSelect from '@/components/FilterSelect.vue'
 
@@ -17,72 +19,117 @@ export default {
     Banner,
     FilterSelect
   },
+  state: {
+    apiIcons: [
+      {
+        id: 0,
+        icon: 'far fa-money-bill-alt'
+      },
+      {
+        id: 1,
+        icon: 'fas fa-coins'
+      },
+      {
+        id: 2,
+        icon: 'fas fa-share-alt'
+      },
+      {
+        id: 3,
+        icon: 'far fa-check-square'
+      },
+      {
+        id: 4,
+        icon: 'fas fa-car'
+      },
+      {
+        id: 5,
+        icon: 'fas fa-network-wired'
+      },
+      {
+        id: 6,
+        icon: 'fas fa-search'
+      },
+      {
+        id: 7,
+        icon: 'far fa-file'
+      },
+      {
+        id: 8,
+        icon: 'fas fa-address-card'
+      },
+      {
+        id: 9,
+        icon: 'fas fa-user-secret'
+      },
+      {
+        id: 10,
+        icon: 'fas fa-map-marker-alt'
+      },
+      {
+        id: 11,
+        icon: 'fas fa-bullseye'
+      }
+    ]
+  },
+  computed: mapState(['apiCards']),
+  created () {
+    this.$store.dispatch('loadApiCards')
+  },
   data () {
     return {
-      apiCards: [],
-      apiIcons: [
-        {
-          id: 0,
-          icon: 'far fa-money-bill-alt'
-        },
-        {
-          id: 1,
-          icon: 'fas fa-coins'
-        },
-        {
-          id: 2,
-          icon: 'fas fa-share-alt'
-        },
-        {
-          id: 3,
-          icon: 'far fa-check-square'
-        },
-        {
-          id: 4,
-          icon: 'fas fa-car'
-        },
-        {
-          id: 5,
-          icon: 'fas fa-network-wired'
-        },
-        {
-          id: 6,
-          icon: 'fas fa-search'
-        },
-        {
-          id: 7,
-          icon: 'far fa-file'
-        },
-        {
-          id: 8,
-          icon: 'fas fa-address-card'
-        },
-        {
-          id: 9,
-          icon: 'fas fa-user-secret'
-        },
-        {
-          id: 10,
-          icon: 'fas fa-map-marker-alt'
-        },
-        {
-          id: 11,
-          icon: 'fas fa-bullseye'
-        }
-      ],
-      loading: true
+      // apiCards: [],
+      // apiIcons: [
+      //   {
+      //     id: 0,
+      //     icon: 'far fa-money-bill-alt'
+      //   },
+      //   {
+      //     id: 1,
+      //     icon: 'fas fa-coins'
+      //   },
+      //   {
+      //     id: 2,
+      //     icon: 'fas fa-share-alt'
+      //   },
+      //   {
+      //     id: 3,
+      //     icon: 'far fa-check-square'
+      //   },
+      //   {
+      //     id: 4,
+      //     icon: 'fas fa-car'
+      //   },
+      //   {
+      //     id: 5,
+      //     icon: 'fas fa-network-wired'
+      //   },
+      //   {
+      //     id: 6,
+      //     icon: 'fas fa-search'
+      //   },
+      //   {
+      //     id: 7,
+      //     icon: 'far fa-file'
+      //   },
+      //   {
+      //     id: 8,
+      //     icon: 'fas fa-address-card'
+      //   },
+      //   {
+      //     id: 9,
+      //     icon: 'fas fa-user-secret'
+      //   },
+      //   {
+      //     id: 10,
+      //     icon: 'fas fa-map-marker-alt'
+      //   },
+      //   {
+      //     id: 11,
+      //     icon: 'fas fa-bullseye'
+      //   }
+      // ],
+      // loading: true
     }
-  },
-  created: function () {
-    axios.get('https://demo3241810.mockable.io/apps')
-      .then(function (response) {
-        this.apiCards = response.data.apps
-        this.addIcon()
-        this.loading = false
-      }.bind(this))
-      .catch(function () {
-        this.loading = false
-      }.bind(this))
   },
   methods: {
     addIcon (element) {
