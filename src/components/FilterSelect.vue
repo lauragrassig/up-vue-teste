@@ -56,6 +56,11 @@ export default {
   ],
   attbValue: 'todos',
   picked: 'todos',
+  created () {
+    this.apiCards = this.apiSource
+    this.FonteReturn = this.apiSource
+    this.addIcon()
+  },
   methods: {
     filterSelecteds: function (value) {
       if (value === 'lancamento') { return this.showLancamento() }

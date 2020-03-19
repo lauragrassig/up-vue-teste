@@ -1,13 +1,12 @@
 <template>
   <div class="wrapper_fontes">
     <Banner />
-    <FilterSelect v-bind:apiCards="apiCards" :FonteReturn="FonteReturn" :loading="loading"/>
+    <FilterSelect v-bind:apiCards="apiSource" :FonteReturn="FonteReturn" :loading="loading"/>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-
+import { mapState } from 'vuex'
 import Banner from '../components/Banner'
 import FilterSelect from '@/components/FilterSelect.vue'
 
@@ -19,7 +18,7 @@ export default {
   data () {
     return {
       loadig: true,
-      apiCards: [],
+      FonteReturn: [],
       apiIcons: [
         {
           id: 0,
@@ -57,24 +56,27 @@ export default {
           id: 8,
           icon: 'fas fa-piggy-bank'
         }
-      ],
-      FonteReturn: []
+      ]
     }
   },
-  created: function () {
-    axios.get('https://demo3241810.mockable.io/sources')
-      .then(function (response) {
-        this.loading = false
-        this.apiCards = response.data.sources
-        this.FonteReturn = this.apiCards
-        this.addIcon()
-      }.bind(this))
-      .catch(function () {
-        this.loading = false
-      }.bind(this))
+  computed: mapState(['apiSource']),
+  created () {
+    this.$store.dispatch('loadApiSource')
   },
+  // created: function () {
+  //   axios.get('https://demo3241810.mockable.io/sources')
+  //     .then(function (response) {
+  //       this.loading = false
+  //       this.apiCards = response.data.sources
+  //       this.FonteReturn = this.apiCards
+  //       this.addIcon()
+  //     }.bind(this))
+  //     .catch(function () {
+  //       this.loading = false
+  //     }.bind(this))
+  // },
   methods: {
-    addIcon (element) {
+    addIcon () {
       this.apiCards.map((card, i) => {
         if (card.id === this.apiIcons[i].id) {
           card.icon = this.apiIcons[i].icon
