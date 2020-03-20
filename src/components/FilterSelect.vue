@@ -56,10 +56,8 @@ export default {
   ],
   attbValue: 'todos',
   picked: 'todos',
-  created () {
-    this.apiCards = this.apiSource
-    this.FonteReturn = this.apiSource
-    this.addIcon()
+  create () {
+    this.fonteSourceMenu = this.apiSource
   },
   methods: {
     filterSelecteds: function (value) {
@@ -90,7 +88,9 @@ export default {
     },
     filterOptions (event, value) {
       this.apiCards = this.FonteReturn
+      this.apiSource = this.FonteReturn
 
+      this.FonteReturn = this.apiSource
       this.apiCards = this.apiCards.filter(el => {
         if (value === el.name) {
           return el
