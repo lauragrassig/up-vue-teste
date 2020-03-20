@@ -16,11 +16,6 @@ export default {
     Banner,
     FilterSelect
   },
-  data () {
-    return {
-      loadig: true
-    }
-  },
   computed: mapState(['apiCards']),
   created () {
     this.$store.dispatch('loadApiCards')

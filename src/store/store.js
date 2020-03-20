@@ -100,7 +100,8 @@ export default new Vuex.Store({
         icon: 'fas fa-piggy-bank'
       }
     ],
-    FonteMenu: []
+    FonteMenu: [],
+    loadig: true
   },
   actions: {
     loadApiCards ({ commit }) {
@@ -114,6 +115,7 @@ export default new Vuex.Store({
       Vue.axios.get('sources')
         .then(result => {
           commit('SOURCE_CARDS', result.data.sources)
+          this.loading = false
         }).bind(this)
         .catch(function () {
           this.loading = false

@@ -26,9 +26,6 @@ export default {
   components: {
     Banner
   },
-  props: [
-    'passKey'
-  ],
   data: function () {
     return {
       saibaMaisCard: '',
