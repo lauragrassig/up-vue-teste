@@ -27,8 +27,6 @@ export default {
   },
   methods: {
     addIcon (element) {
-      console.log(element)
-
       element.map((card, i) => {
         if (card.id === this.apiIcons[i].id) {
           card.icon = this.apiIcons[i].icon

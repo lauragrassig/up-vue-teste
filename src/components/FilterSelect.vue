@@ -36,9 +36,9 @@
             <h5>{{moment(card.date).format('L')}}</h5>
           </div>
           <div class="card_more">
-            <div class="more_price" v-show="$route.path=='/'">R$ {{card.price}}</div>
+            <div class="more_price" v-if="card.price != null">R$ {{card.price}}</div>
             <div class="more_button">
-              <button class="button_default --no-bg" @click="openSaibaMais(key)">Saiba Mais</button>
+            <button class="button_default --no-bg" @click="openSaibaMais(key)">Saiba Mais</button>
             </div>
           </div>
         </div>
@@ -79,15 +79,12 @@ export default {
       return this.apiCards
     },
     openSaibaMais (key) {
-      localStorage.setItem('currentFont', JSON.stringify(this.apiCards[key]))
-
-      this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
+      this.$router.push({ name: 'SaibaMais', params: { typeId: key, cards: this.apiCards } })
     },
     filterOptions (event, value) {
       this.apiCards = this.FonteMenu
       this.apiSource = this.FonteMenu
 
-      this.FonteMenu = this.apiSource
       this.apiCards = this.apiCards.filter(el => {
         if (value === el.name) {
           return el
