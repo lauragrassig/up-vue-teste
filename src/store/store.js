@@ -99,7 +99,8 @@ export default new Vuex.Store({
         id: 8,
         icon: 'fas fa-piggy-bank'
       }
-    ]
+    ],
+    FonteMenu: []
   },
   actions: {
     loadApiCards ({ commit }) {
@@ -144,7 +145,7 @@ export default new Vuex.Store({
             card.icon = state.apiIconsSource[i].icon
           }
         })
-        state.FonteReturn = element
+        state.FonteMenu = element
       }
     }
   }

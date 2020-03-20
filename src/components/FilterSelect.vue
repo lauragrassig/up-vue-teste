@@ -15,7 +15,7 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <label v-for="(fonte, key) in FonteReturn" :key="key" :value="fonte.name" :for="fonte.key" class="fonte" @change="filterOptions($event, fonte.name)">
+            <label v-for="(fonte, key) in FonteMenu" :key="key" :value="fonte.name" :for="fonte.key" class="fonte" @change="filterOptions($event, fonte.name)">
               <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.name" name="optionsCheck">
               <i :class="fonte.icon"></i>
               <span>{{fonte.name}}</span>
@@ -51,14 +51,11 @@
 export default {
   props: [
     'apiCards',
-    'FonteReturn',
+    'FonteMenu',
     'loading'
   ],
   attbValue: 'todos',
   picked: 'todos',
-  create () {
-    this.fonteSourceMenu = this.apiSource
-  },
   methods: {
     filterSelecteds: function (value) {
       if (value === 'lancamento') { return this.showLancamento() }
@@ -87,10 +84,10 @@ export default {
       this.$router.push({ name: 'SaibaMais', params: { typeId: key } })
     },
     filterOptions (event, value) {
-      this.apiCards = this.FonteReturn
-      this.apiSource = this.FonteReturn
+      this.apiCards = this.FonteMenu
+      this.apiSource = this.FonteMenu
 
-      this.FonteReturn = this.apiSource
+      this.FonteMenu = this.apiSource
       this.apiCards = this.apiCards.filter(el => {
         if (value === el.name) {
           return el
