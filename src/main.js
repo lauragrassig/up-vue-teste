@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import App from './App.vue'
 import router from './router'
 import vSelect from 'vue-select'
@@ -23,6 +25,7 @@ Vue.component('v-select', vSelect)
 Vue.prototype.moment = moment
 
 Vue.use(Vuex)
+Vue.use(VueAxios, axios)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
