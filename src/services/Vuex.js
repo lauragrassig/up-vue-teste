@@ -3,10 +3,10 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+import * as AppsService from './apps/AppsService'
+
 Vue.use(Vuex)
 Vue.use(VueAxios, axios)
-
-Vue.axios.defaults.baseURL = 'https://demo3241810.mockable.io/'
 
 export default new Vuex.Store({
   state: {
@@ -102,30 +102,16 @@ export default new Vuex.Store({
     loadig: true
   },
   actions: {
-    loadApiCards ({
+    loadCards ({
       commit
     }) {
-      Vue.axios.get('apps').then(result => {
-        commit('APP_CARDS', result.data.apps)
-      }).catch(error => {
-        throw new Error(`API ${error}`)
-      })
-    },
-    loadApiSource ({
-      commit
-    }) {
-      Vue.axios.get('sources')
-        .then(result => {
-          commit('SOURCE_CARDS', result.data.sources)
-          this.loading = false
-        }).bind(this)
-        .catch(function () {
-          this.loading = false
-        }.bind(this))
+      AppsService.LoadApiCards()
+        .then(apiCards => commit('APP_CARDS', apiCards))
     }
   },
   mutations: {
     APP_CARDS (state, apiCards) {
+      console.log('work')
       state.apiCards = apiCards
       this.apiCards = state.apiCards
       this.apiCards = addIcon(apiCards)

@@ -6,8 +6,8 @@ import App from './App.vue'
 import router from './router'
 import vSelect from 'vue-select'
 import moment from 'moment'
-import store from './store/store'
-
+// import store from './store/store'
+import store from './services/Vuex'
 // Bootstrap
 import {
   BootstrapVue,
