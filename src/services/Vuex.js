@@ -1,6 +1,7 @@
 import Vuex from 'vuex'
 
 import * as AppsService from './apps/AppsService'
+import * as SourcesService from './sources/SourcesService'
 
 export default new Vuex.Store({
   state: {
@@ -99,35 +100,20 @@ export default new Vuex.Store({
     loadApiCards ({ commit }) {
       AppsService.loadCards().then(apiCards => commit('APP_CARDS', apiCards)
       )
+    },
+    loadApiSource ({ commit }) {
+      SourcesService.loadCards().then(apiSource => commit('SOURCE_CARDS', apiSource)
+      )
     }
   },
   mutations: {
     APP_CARDS (state, apiCards) {
-      state.apiCards = apiCards
-      this.apiCards = state.apiCards
-      this.apiCards = addIcon(apiCards)
+      AppsService.MutationAppCards(state, apiCards)
+    },
+    SOURCE_CARDS (state, apiSource) {
+      SourcesService.MutationAppCards(state, apiSource, state.FonteMenu)
 
-      function addIcon (element) {
-        element.map((card, i) => {
-          if (card.id === state.apiIconsCards[i].id) {
-            card.icon = state.apiIconsCards[i].icon
-          }
-        })
-      }
+      state.FonteMenu = state.apiSource
     }
-    // SOURCE_CARDS (state, apiSource) {
-    //   state.apiSource = apiSource
-    //   this.apiSource = state.apiCards
-    //   this.apiSource = addIcon(apiSource)
-
-    //   function addIcon (element) {
-    //     element.map((card, i) => {
-    //       if (card.id === state.apiIconsSource[i].id) {
-    //         card.icon = state.apiIconsSource[i].icon
-    //       }
-    //     })
-    //     state.FonteMenu = element
-    //   }
-    // }
   }
 })
