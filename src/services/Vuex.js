@@ -1,12 +1,6 @@
-import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
 
 import * as AppsService from './apps/AppsService'
-
-Vue.use(Vuex)
-Vue.use(VueAxios, axios)
 
 export default new Vuex.Store({
   state: {
@@ -102,11 +96,10 @@ export default new Vuex.Store({
     loadig: true
   },
   actions: {
-    loadCards ({
-      commit
-    }) {
-      AppsService.LoadApiCards()
-        .then(apiCards => commit('APP_CARDS', apiCards))
+    loadCards ({ commit }) {
+      AppsService.loadApiCards()
+        .then(apiCards => commit('APP_CARDS ', apiCards)
+        )
     }
   },
   mutations: {
