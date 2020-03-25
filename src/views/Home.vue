@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <Banner />
-    <FilterSelect v-bind:apiCards="apiCards" :loading="loading" />
+    <FilterSelect v-bind:apiCards="apiCards"/>
   </div>
 </template>
 
@@ -20,14 +20,5 @@ export default {
   created () {
     this.$store.dispatch('loadApiCards')
   }
-  // methods: {
-  //   addIcon (element) {
-  //     element.map((card, i) => {
-  //       if (card.id === this.apiIcons[i].id) {
-  //         card.icon = this.apiIcons[i].icon
-  //       }
-  //     })
-  //   }
-  // }
 }
 </script>

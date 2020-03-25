@@ -9,9 +9,6 @@
           <option value="preco">Menor Preço</option>
         </select>
       </div>
-      <div class="loader" v-if="loading">
-        <img src="https://i.ya-webdesign.com/images/loading-gif-png-5.gif"/>
-      </div>
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
@@ -23,36 +20,21 @@
           </div>
         </div>
       </div>
-      <div class="wrapper_cards">
-        <div v-for="(card, key) in apiCards" :key="key" class="card">
-          <div class="card_icon">
-            <i :class="card.icon"></i>
-          </div>
-          <div class="card_title">
-            <h3>{{card.name}}</h3>
-          </div>
-          <div class="card_description">
-            <p>{{card.description}}</p>
-            <h5>{{moment(card.date).format('L')}}</h5>
-          </div>
-          <div class="card_more">
-            <div class="more_price" v-if="card.price != null">R$ {{card.price}}</div>
-            <div class="more_button">
-            <button class="button_default --no-bg" @click="openSaibaMais(key)">Saiba Mais</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Cards v-bind:apiCards="apiCards"/>
     </b-container>
   </div>
 </template>
 
 <script>
+import Cards from '@/components/Cards.vue'
+
 export default {
+  components: {
+    Cards
+  },
   props: [
     'apiCards',
-    'FonteMenu',
-    'loading'
+    'FonteMenu'
   ],
   attbValue: 'todos',
   picked: 'todos',
@@ -77,9 +59,6 @@ export default {
       this.apiCards.sort(function () { return 0.5 - Math.random() })
 
       return this.apiCards
-    },
-    openSaibaMais (key) {
-      this.$router.push({ name: 'SaibaMais', params: { typeId: key, cards: this.apiCards } })
     },
     filterOptions (event, value) {
       this.apiCards = this.FonteMenu

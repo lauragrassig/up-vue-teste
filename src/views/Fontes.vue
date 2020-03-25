@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper_fontes">
     <Banner />
-    <FilterSelect v-bind:apiCards="apiSource" :FonteMenu="FonteMenu" :loading="loading"/>
+    <FilterSelect v-bind:apiCards="apiSource" :FonteMenu="FonteMenu"/>
   </div>
 </template>
 
@@ -14,11 +14,6 @@ export default {
   components: {
     Banner,
     FilterSelect
-  },
-  data () {
-    return {
-      loadig: true
-    }
   },
   computed: mapState(['apiSource', 'FonteMenu']),
   created () {
