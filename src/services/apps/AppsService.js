@@ -5,10 +5,11 @@ import {
   URL
 } from './Apps.mappers'
 
-export const loadApiCards = () => {
+export const loadCards = () => {
   return axios.get(`${BaseURL}/${URL}`)
     .then(result => result.data.apps)
-    .catch(error => {
-      throw new Error(`API ${error}`)
-    })
+}
+
+export const teste = () => {
+  console.log('teste')
 }

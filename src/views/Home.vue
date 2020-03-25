@@ -6,7 +6,7 @@
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 import Banner from '@/components/Banner.vue'
 import FilterSelect from '@/components/FilterSelect.vue'
 
@@ -16,18 +16,18 @@ export default {
     Banner,
     FilterSelect
   },
-  // computed: mapState(['apiCards']),
-  // created () {
-  //   this.$store.dispatch('loadApiCards')
-  // },
-  methods: {
-    addIcon (element) {
-      element.map((card, i) => {
-        if (card.id === this.apiIcons[i].id) {
-          card.icon = this.apiIcons[i].icon
-        }
-      })
-    }
+  computed: mapState(['apiCards']),
+  created () {
+    this.$store.dispatch('loadApiCards')
   }
+  // methods: {
+  //   addIcon (element) {
+  //     element.map((card, i) => {
+  //       if (card.id === this.apiIcons[i].id) {
+  //         card.icon = this.apiIcons[i].icon
+  //       }
+  //     })
+  //   }
+  // }
 }
 </script>

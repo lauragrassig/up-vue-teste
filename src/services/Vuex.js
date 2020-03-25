@@ -96,15 +96,13 @@ export default new Vuex.Store({
     loadig: true
   },
   actions: {
-    loadCards ({ commit }) {
-      AppsService.loadApiCards()
-        .then(apiCards => commit('APP_CARDS ', apiCards)
-        )
+    loadApiCards ({ commit }) {
+      AppsService.loadCards().then(apiCards => commit('APP_CARDS', apiCards)
+      )
     }
   },
   mutations: {
     APP_CARDS (state, apiCards) {
-      console.log('work')
       state.apiCards = apiCards
       this.apiCards = state.apiCards
       this.apiCards = addIcon(apiCards)
@@ -116,20 +114,20 @@ export default new Vuex.Store({
           }
         })
       }
-    },
-    SOURCE_CARDS (state, apiSource) {
-      state.apiSource = apiSource
-      this.apiSource = state.apiCards
-      this.apiSource = addIcon(apiSource)
-
-      function addIcon (element) {
-        element.map((card, i) => {
-          if (card.id === state.apiIconsSource[i].id) {
-            card.icon = state.apiIconsSource[i].icon
-          }
-        })
-        state.FonteMenu = element
-      }
     }
+    // SOURCE_CARDS (state, apiSource) {
+    //   state.apiSource = apiSource
+    //   this.apiSource = state.apiCards
+    //   this.apiSource = addIcon(apiSource)
+
+    //   function addIcon (element) {
+    //     element.map((card, i) => {
+    //       if (card.id === state.apiIconsSource[i].id) {
+    //         card.icon = state.apiIconsSource[i].icon
+    //       }
+    //     })
+    //     state.FonteMenu = element
+    //   }
+    // }
   }
 })
