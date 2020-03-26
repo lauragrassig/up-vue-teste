@@ -48,16 +48,6 @@ export default {
   methods: {
     openSaibaMais (key) {
       this.$router.push({ name: 'SaibaMais', params: { typeId: key, cards: this.apiCards } })
-    },
-    filterOptions (event) {
-      console.log(event)
-      this.apiCards = this.FonteMenu
-      this.apiSource = this.FonteMenu
-      this.apiCards = this.apiCards.filter(el => {
-        if (event === el.name) {
-          return el
-        }
-      })
     }
   }
 }
