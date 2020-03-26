@@ -2,6 +2,7 @@
   <div class="home">
     <Banner />
     <FilterSelect v-bind:apiCards="apiCards"/>
+    <Cards v-bind:apiCards="apiCards" />
   </div>
 </template>
 
@@ -9,12 +10,14 @@
 import { mapState } from 'vuex'
 import Banner from '@/components/Banner.vue'
 import FilterSelect from '@/components/FilterSelect.vue'
+import Cards from '@/components/Cards.vue'
 
 export default {
   name: 'Home',
   components: {
     Banner,
-    FilterSelect
+    FilterSelect,
+    Cards
   },
   computed: mapState(['apiCards']),
   created () {

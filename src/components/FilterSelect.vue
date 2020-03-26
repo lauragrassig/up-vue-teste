@@ -12,32 +12,31 @@
       <div v-show="$route.path=='/fontes'">
         <div class="fontes">
           <div class="list_fontes">
-            <label v-for="(fonte, key) in FonteMenu" :key="key" :value="fonte.name" :for="fonte.key" class="fonte" @change="filterOptions($event, fonte.name)">
-              <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.name" name="optionsCheck">
+            <label v-for="(fonte, key) in FonteMenu" :key="key" :value="fonte.name" :for="fonte.key" class="fonte"   >
+              <input type="radio" :id="fonte.key" v-model="picked" :value="fonte.name" name="optionsCheck" @click="changeEventValueFilter($event.target.value)">
               <i :class="fonte.icon"></i>
               <span>{{fonte.name}}</span>
             </label>
           </div>
         </div>
       </div>
-      <Cards v-bind:apiCards="apiCards"/>
     </b-container>
   </div>
 </template>
 
 <script>
-import Cards from '@/components/Cards.vue'
-
 export default {
-  components: {
-    Cards
-  },
   props: [
     'apiCards',
     'FonteMenu'
   ],
   attbValue: 'todos',
   picked: 'todos',
+  getters: {
+    getApi: (state, getters) => {
+      return getters.apiCards.name
+    }
+  },
   methods: {
     filterSelecteds: function (value) {
       if (value === 'lancamento') { return this.showLancamento() }
@@ -60,15 +59,11 @@ export default {
 
       return this.apiCards
     },
-    filterOptions (event, value) {
-      this.apiCards = this.FonteMenu
-      this.apiSource = this.FonteMenu
-
-      this.apiCards = this.apiCards.filter(el => {
-        if (value === el.name) {
-          return el
-        }
-      })
+    onClickButton (event) {
+      this.$emit('clicked', event)
+    },
+    changeEventValueFilter (event) {
+      this.$emit('valueSourceFilter', event)
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
+<b-container>
   <div class="wrapper_cards">
-    <div v-for="(card, key) in apiCards" :key="key" class="card">
+    <div :value="dataChange" v-for="(card, key) in apiCards" :key="key" class="card">
       <div class="card_icon">
         <i :class="card.icon"></i>
       </div>
@@ -19,16 +20,44 @@
       </div>
     </div>
   </div>
+  </b-container>
 </template>
 
 <script>
 export default {
   props: [
-    'apiCards'
+    'apiCards',
+    'FonteMenu'
   ],
+  data () {
+    return {
+      dataChange: 'no change'
+    }
+  },
+  watch: {
+    dataChange: function (event) {
+      this.apiCards = this.FonteMenu
+      this.apiSource = this.FonteMenu
+      this.apiCards = this.apiCards.filter(el => {
+        if (event === el.name) {
+          return el
+        }
+      })
+    }
+  },
   methods: {
     openSaibaMais (key) {
       this.$router.push({ name: 'SaibaMais', params: { typeId: key, cards: this.apiCards } })
+    },
+    filterOptions (event) {
+      console.log(event)
+      this.apiCards = this.FonteMenu
+      this.apiSource = this.FonteMenu
+      this.apiCards = this.apiCards.filter(el => {
+        if (event === el.name) {
+          return el
+        }
+      })
     }
   }
 }
